@@ -43,12 +43,12 @@ int main(int argc, const char* argv[]) {
 		{
 			throw "unknown mode";
 		}
-
 	}
 	catch (...)
 	{
 		std::cout << "except:" << std::endl;
 	}
+
 	std::cout << reestr[0];
 
 	return 0;
