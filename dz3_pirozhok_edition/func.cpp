@@ -80,9 +80,9 @@ void solverLo(std::vector<std::string>& reestr, bool& flag, int i) {
 		flag = true;
 	}
 	else {
-		reestr[i - 2] = std::to_string(loOp[reestr[i]](stoi(reestr[i - 2]), stoi(reestr[i - 1]))); //заменяем элемент [i - 2] на ans
-		reestr.erase(reestr.cbegin() + i); //удаляем элемент [i]
-		reestr.erase(reestr.cbegin() + i - 1); //удаляем элемент [i - 1]
+		reestr[i - 2] = std::to_string(loOp[reestr[i]](stoi(reestr[i - 2]), stoi(reestr[i - 1])));
+		reestr.erase(reestr.cbegin() + i);
+		reestr.erase(reestr.cbegin() + i - 1);
 		flag = true;
 	}
 }
