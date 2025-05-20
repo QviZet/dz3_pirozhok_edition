@@ -14,10 +14,8 @@ int main(int argc, const char* argv[]) {
 
 				flag = false;//обновляем флаг
 
-				ar newAr(stoi(reestr[i - 2]), stoi(reestr[i - 1])); //создаём объект класса ar(арифметическая операция)
-
 				if (reestr[i] == "+" || reestr[i] == "-" || reestr[i] == "*" || reestr[i] == "/" || reestr[i] == "^") {
-					solverAr(reestr, newAr, reestr[i], flag);
+					solverAr(reestr, stoi(reestr[i - 2]), stoi(reestr[i - 1]), reestr[i], flag);
 				}
 				std::cout << "\n";
 				if (flag == true) break;//если сработал флаг то переходим на новую итерацию не доходя до конца массива
@@ -30,10 +28,8 @@ int main(int argc, const char* argv[]) {
 
 				flag = false;
 
-				lo newLo(stoi(reestr[i - 2]), stoi(reestr[i - 1])); //создаём объект класса lo(булевая операция)
-
 				if (reestr[i] == "^" || reestr[i] == "U" || reestr[i] == "+" || reestr[i] == "!") {
-					solverLo(reestr, newLo, reestr[i], flag);
+					solverLo(reestr, stoi(reestr[i - 2]), stoi(reestr[i - 1]), reestr[i], flag);
 				}
 				std::cout << "\n";
 				if (flag == true) break;
@@ -50,6 +46,5 @@ int main(int argc, const char* argv[]) {
 	for (size_t i = 0; i < reestr.size(); i++) {
 		std::cout << reestr[i] << " ";
 	}
-
 	return 0;
 }

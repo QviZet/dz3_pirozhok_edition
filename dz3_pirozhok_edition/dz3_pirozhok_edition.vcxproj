@@ -131,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="func.cpp" />
-    <ClCompile Include="methods.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
