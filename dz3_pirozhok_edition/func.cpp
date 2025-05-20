@@ -1,6 +1,6 @@
 #include "Header.h"
 
-std::map <std::string, std::function<int(int, int)>> operations
+std::map <std::string, std::function<int(int, int)>> arOp
 {
 	{"+", std::plus<int>()},
 	{"-", std::minus<int>()},
@@ -9,7 +9,7 @@ std::map <std::string, std::function<int(int, int)>> operations
 	{"^", my_pow}
 };
 
-std::map <std::string, std::function<int(int, int)>> operations
+std::map <std::string, std::function<int(int, int)>> loOp
 {
 	{"^", konu},
 	{"U", disu},
@@ -52,7 +52,7 @@ int konu(int frst, int scnd) {   //...^...
 }
 
 int disu(int frst, int scnd) {   //...U...
-	int ans = frst + scnd - (frst + scnd);
+	int ans = frst + scnd - (frst * scnd);
 	return ans;
 }
 
@@ -62,12 +62,27 @@ int ksor(int frst, int scnd) {   //...(+)...
 }
 
 int inve(int frst, int scnd) {   //...inv...
-	int ans = 1 - frst;
+	int ans = 1 - scnd;
 	return ans;
 }
 
-void solverAr(std::vector<std::string>& reestr, int frst, int scnd, std::string& cur, bool flag) {
+void solverAr(std::vector<std::string>& reestr, bool& flag, int i) {
+	reestr[i - 2] = std::to_string(arOp[reestr[i]](stoi(reestr[i - 2]), stoi(reestr[i - 1]))); //заменяем элемент [i - 2] на ans
+	reestr.erase(reestr.cbegin() + i); //удаляем элемент [i]
+	reestr.erase(reestr.cbegin() + i - 1); //удаляем элемент [i - 1]
+	flag = true;
 }
 
-void solverLo(std::vector<std::string>& reestr, int frst, int scnd, std::string& cur, bool flag) {
+void solverLo(std::vector<std::string>& reestr, bool& flag, int i) {
+	if (reestr[i] == "!") {
+		reestr[i - 1] = std::to_string(loOp[reestr[i]](0, stoi(reestr[i - 1])));
+		reestr.erase(reestr.cbegin() + i);
+		flag = true;
+	}
+	else {
+		reestr[i - 2] = std::to_string(loOp[reestr[i]](stoi(reestr[i - 2]), stoi(reestr[i - 1]))); //заменяем элемент [i - 2] на ans
+		reestr.erase(reestr.cbegin() + i); //удаляем элемент [i]
+		reestr.erase(reestr.cbegin() + i - 1); //удаляем элемент [i - 1]
+		flag = true;
+	}
 }

@@ -20,6 +20,6 @@ int ksor(int frst, int scnd);   //...(+)...
 
 int inve(int frst, int scnd);   //...inv...
 
-void solverAr(std::vector<std::string>& reestr, int frst, int scnd, std::string& cur, bool flag);
+void solverAr(std::vector<std::string>& reestr, bool& flag, int i);
 
-void solverLo(std::vector<std::string>& reestr, int frst, int scnd, std::string& cur, bool flag);
+void solverLo(std::vector<std::string>& reestr, bool& flag, int i);

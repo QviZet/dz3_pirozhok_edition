@@ -4,6 +4,7 @@ int main(int argc, const char* argv[]) {
 	std::string mod = std::string(argv[1]);
 	std::string fileName = argv[2];
 	std::vector<std::string> reestr;
+
 	fillReestr(reestr, fileName);
 
 	bool flag = false;//флаг для перехода на новую итерацию цикла после выполнения любой операции
@@ -15,36 +16,27 @@ int main(int argc, const char* argv[]) {
 				flag = false;//обновляем флаг
 
 				if (reestr[i] == "+" || reestr[i] == "-" || reestr[i] == "*" || reestr[i] == "/" || reestr[i] == "^") {
-					solverAr(reestr, stoi(reestr[i - 2]), stoi(reestr[i - 1]), reestr[i], flag);
+					solverAr(reestr, flag, i);
 				}
-				std::cout << "\n";
 				if (flag == true) break;//если сработал флаг то переходим на новую итерацию не доходя до конца массива
 			}
 		}
 	}
-	else {
-		while (reestr.size() >= 3) {
-			for (size_t i = 2; i < reestr.size(); i++) {
+
+	if (mod == "log"){
+		while (reestr.size() >= 2) {
+			for (size_t i = 1; i < reestr.size(); i++) {
 
 				flag = false;
 
 				if (reestr[i] == "^" || reestr[i] == "U" || reestr[i] == "+" || reestr[i] == "!") {
-					solverLo(reestr, stoi(reestr[i - 2]), stoi(reestr[i - 1]), reestr[i], flag);
+					solverLo(reestr, flag, i);
 				}
-				std::cout << "\n";
 				if (flag == true) break;
 			}
 		}
+	}
+	std::cout << reestr[0];
 
-		if (reestr.size() == 2) { //обрабатываем ситуацию инверсии последним действием
-			reestr[0] = std::to_string(1 - stoi(reestr[0]));
-			reestr.erase(reestr.cbegin() + 1);
-		}
-	}
-	std::cout << "\n";
-	reestr.erase(reestr.cbegin() + 1);
-	for (size_t i = 0; i < reestr.size(); i++) {
-		std::cout << reestr[i] << " ";
-	}
 	return 0;
 }
