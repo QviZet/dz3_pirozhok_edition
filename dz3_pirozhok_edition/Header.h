@@ -4,6 +4,9 @@
 #include <vector>
 #include <fstream>
 #include <map>
+#include <exception>
+#include <stdexcept>
+#include <functional>
 
 class ar {
 	int frst, scnd;
@@ -19,6 +22,8 @@ public:
 	int step();
 };
 
+int step(ar& newAr);
+
 class lo {
 	int frst, scnd;
 	int ans = 1;
@@ -33,3 +38,7 @@ public:
 };
 
 void fillReestr(std::vector<std::string>& data, std::string& fileName);
+
+void solverAr(std::vector<std::string>& reestr, ar& newAr, std::string& cur, bool flag);
+
+void solverLo(std::vector<std::string>& reestr, lo& newLo, std::string& cur, bool flag);

@@ -1,4 +1,4 @@
-#include "Header.h"
+ï»¿#include "Header.h"
 
 int main(int argc, const char* argv[]) {
 	std::string mod = std::string(argv[1]);
@@ -6,52 +6,21 @@ int main(int argc, const char* argv[]) {
 	std::vector<std::string> reestr;
 	fillReestr(reestr, fileName);
 
-	bool flag = false;//ôëàã äëÿ ïåðåõîäà íà íîâóþ èòåðàöèþ öèêëà ïîñëå âûïîëíåíèÿ ëþáîé îïåðàöèè
+	bool flag = false;//Ñ„Ð»Ð°Ð³ Ð´Ð»Ñ Ð¿ÐµÑ€ÐµÑ…Ð¾Ð´Ð° Ð½Ð° Ð½Ð¾Ð²ÑƒÑŽ Ð¸Ñ‚ÐµÑ€Ð°Ñ†Ð¸ÑŽ Ñ†Ð¸ÐºÐ»Ð° Ð¿Ð¾ÑÐ»Ðµ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ Ð»ÑŽÐ±Ð¾Ð¹ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸
 
 	if (mod == "ar") {
 		while (reestr.size() >= 3) {
 			for (size_t i = 2; i < reestr.size(); i++) {
 
-				flag = false;//îáíîâëÿåì ôëàã
+				flag = false;//Ð¾Ð±Ð½Ð¾Ð²Ð»ÑÐµÐ¼ Ñ„Ð»Ð°Ð³
 
-				ar newAr(stoi(reestr[i - 2]), stoi(reestr[i - 1])); //ñîçäà¸ì îáúåêò êëàññà ar(àðèôìåòè÷åñêàÿ îïåðàöèÿ)
+				ar newAr(stoi(reestr[i - 2]), stoi(reestr[i - 1])); //ÑÐ¾Ð·Ð´Ð°Ñ‘Ð¼ Ð¾Ð±ÑŠÐµÐºÑ‚ ÐºÐ»Ð°ÑÑÐ° ar(Ð°Ñ€Ð¸Ñ„Ð¼ÐµÑ‚Ð¸Ñ‡ÐµÑÐºÐ°Ñ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ñ)
 
-				if (reestr[i] == "+") {
-					reestr[i - 2] = std::to_string(newAr.sloz()); //çàìåíÿåì ýëåìåíò [i - 2] íà ans
-					reestr.erase(reestr.cbegin() + i); //óäàëÿåì ýëåìåíò [i]
-					reestr.erase(reestr.cbegin() + i - 1);//óäàëÿåì ýëåìåíò [i - 1]
-					flag = true;
-				}
-				else if (reestr[i] == "-") {
-					reestr[i - 2] = std::to_string(newAr.vych());
-					reestr.erase(reestr.cbegin() + i);
-					reestr.erase(reestr.cbegin() + i - 1);
-					flag = true;
-				}
-				else if (reestr[i] == "*") {
-					reestr[i - 2] = std::to_string(newAr.umno());
-					reestr.erase(reestr.cbegin() + i);
-					reestr.erase(reestr.cbegin() + i - 1);
-					flag = true;
-				}
-				else if (reestr[i] == "/") {
-					reestr[i - 2] = std::to_string(newAr.dele());
-					reestr.erase(reestr.cbegin() + i);
-					reestr.erase(reestr.cbegin() + i - 1);
-					flag = true;
-				}
-				else if (reestr[i] == "^") {
-					reestr[i - 2] = std::to_string(newAr.step());
-					reestr.erase(reestr.cbegin() + i);
-					reestr.erase(reestr.cbegin() + i - 1);
-					flag = true;
+				if (reestr[i] == "+" || reestr[i] == "-" || reestr[i] == "*" || reestr[i] == "/" || reestr[i] == "^") {
+					solverAr(reestr, newAr, reestr[i], flag);
 				}
 				std::cout << "\n";
-				for (size_t i = 0; i < reestr.size(); i++) {
-					std::cout << reestr[i] << " ";
-				}
-				std::cout << "\n";
-				if (flag == true) break;//åñëè ñðàáîòàë ôëàã òî ïåðåõîäèì íà íîâóþ èòåðàöèþ íå äîõîäÿ äî êîíöà ìàññèâà
+				if (flag == true) break;//ÐµÑÐ»Ð¸ ÑÑ€Ð°Ð±Ð¾Ñ‚Ð°Ð» Ñ„Ð»Ð°Ð³ Ñ‚Ð¾ Ð¿ÐµÑ€ÐµÑ…Ð¾Ð´Ð¸Ð¼ Ð½Ð° Ð½Ð¾Ð²ÑƒÑŽ Ð¸Ñ‚ÐµÑ€Ð°Ñ†Ð¸ÑŽ Ð½Ðµ Ð´Ð¾Ñ…Ð¾Ð´Ñ Ð´Ð¾ ÐºÐ¾Ð½Ñ†Ð° Ð¼Ð°ÑÑÐ¸Ð²Ð°
 			}
 		}
 	}
@@ -61,40 +30,19 @@ int main(int argc, const char* argv[]) {
 
 				flag = false;
 
-				lo newAr(stoi(reestr[i - 2]), stoi(reestr[i - 1])); //ñîçäà¸ì îáúåêò êëàññà lo(áóëåâàÿ îïåðàöèÿ)
+				lo newLo(stoi(reestr[i - 2]), stoi(reestr[i - 1])); //ÑÐ¾Ð·Ð´Ð°Ñ‘Ð¼ Ð¾Ð±ÑŠÐµÐºÑ‚ ÐºÐ»Ð°ÑÑÐ° lo(Ð±ÑƒÐ»ÐµÐ²Ð°Ñ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ñ)
 
-				if (reestr[i] == "^") {
-					reestr[i - 2] = std::to_string(newAr.konu());
-					reestr.erase(reestr.cbegin() + i);
-					reestr.erase(reestr.cbegin() + i - 1);
-					flag = true;
-				}
-				else if (reestr[i] == "U") {
-					reestr[i - 2] = std::to_string(newAr.disu());
-					reestr.erase(reestr.cbegin() + i);
-					reestr.erase(reestr.cbegin() + i - 1);
-					flag = true;
-				}
-				else if (reestr[i] == "+") {
-					reestr[i - 2] = std::to_string(newAr.ksor());
-					reestr.erase(reestr.cbegin() + i);
-					reestr.erase(reestr.cbegin() + i - 1);
-					flag = true;
-				}
-				else if (reestr[i] == "!") {
-					reestr[i - 2] = std::to_string(newAr.disu());
-					reestr.erase(reestr.cbegin() + i);
-					reestr.erase(reestr.cbegin() + i - 1);
-					flag = true;
-				}
-
-				std::cout << "\n";
-				for (size_t i = 0; i < reestr.size(); i++) {
-					std::cout << reestr[i] << " ";
+				if (reestr[i] == "^" || reestr[i] == "U" || reestr[i] == "+" || reestr[i] == "!") {
+					solverLo(reestr, newLo, reestr[i], flag);
 				}
 				std::cout << "\n";
 				if (flag == true) break;
 			}
+		}
+
+		if (reestr.size() == 2) { //Ð¾Ð±Ñ€Ð°Ð±Ð°Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ ÑÐ¸Ñ‚ÑƒÐ°Ñ†Ð¸ÑŽ Ð¸Ð½Ð²ÐµÑ€ÑÐ¸Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´Ð½Ð¸Ð¼ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸ÐµÐ¼
+			reestr[0] = std::to_string(1 - stoi(reestr[0]));
+			reestr.erase(reestr.cbegin() + 1);
 		}
 	}
 	std::cout << "\n";
