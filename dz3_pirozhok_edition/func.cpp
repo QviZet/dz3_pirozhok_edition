@@ -1,4 +1,4 @@
-#include "Header.h"
+п»ї#include "Header.h"
 
 std::map <std::string, std::function<int(int, int)>> arOp
 {
@@ -20,14 +20,14 @@ std::map <std::string, std::function<int(int, int)>> loOp
 void fillReestr(std::vector<std::string>& data, std::string& fileName)
 {
 	std::ifstream read(fileName);
-	if (!read) { //проверяем существование файла
-		std::cout << "Ошибка, файл не найден" << std::endl;
+	if (!read) { //РїСЂРѕРІРµСЂСЏРµРј СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ С„Р°Р№Р»Р°
+		std::cout << "РћС€РёР±РєР°, С„Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ" << std::endl;
 		system("pause");
 	}
-	std::string a;  //инициализируем строковую переменную
+	std::string a;  //РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЃС‚СЂРѕРєРѕРІСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ
 	while (read.peek() != EOF) {
-		read >> a;  //записываем элемент выражения
-		data.push_back(a);  //помещаем элемент в массив
+		read >> a;  //Р·Р°РїРёСЃС‹РІР°РµРј СЌР»РµРјРµРЅС‚ РІС‹СЂР°Р¶РµРЅРёСЏ
+		data.push_back(a);  //РїРѕРјРµС‰Р°РµРј СЌР»РµРјРµРЅС‚ РІ РјР°СЃСЃРёРІ
 	}
 	read.close();
 }
@@ -37,7 +37,7 @@ void editFile(std::string& fileName) {
 	
 	if (!potok)
 	{
-		std::cout << "Ошибка, файл не найден" << std::endl;
+		std::cout << "РћС€РёР±РєР°, С„Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ" << std::endl;
 		system("pause");
 	}
 	std::string a;
@@ -50,11 +50,11 @@ void editFile(std::string& fileName) {
 	std::string Input;
 	getline(potok, a);
 	CONSOLE_SCREEN_BUFFER_INFO bi;
-	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bi); //записываем информацию о буфере экрана в консоли в bi
-	coord.X = bi.dwCursorPosition.X; //получаем координаты курсора (это будут координаты начала строки после ее вывода)
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bi); //Р·Р°РїРёСЃС‹РІР°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ Р±СѓС„РµСЂРµ СЌРєСЂР°РЅР° РІ РєРѕРЅСЃРѕР»Рё РІ bi
+	coord.X = bi.dwCursorPosition.X; //РїРѕР»СѓС‡Р°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РєСѓСЂСЃРѕСЂР° (СЌС‚Рѕ Р±СѓРґСѓС‚ РєРѕРѕСЂРґРёРЅР°С‚С‹ РЅР°С‡Р°Р»Р° СЃС‚СЂРѕРєРё РїРѕСЃР»Рµ РµРµ РІС‹РІРѕРґР°)
 	coord.Y = bi.dwCursorPosition.Y;
 	std::cout << a;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); //устанавливаем курсор на ранее полученные координаты
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); //СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєСѓСЂСЃРѕСЂ РЅР° СЂР°РЅРµРµ РїРѕР»СѓС‡РµРЅРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 	getline(std::cin, Input);
 	potok1 << Input;
 
@@ -167,9 +167,9 @@ int inve(int frst, int scnd) {   //...inv...
 }
 
 void solverAr(std::vector<std::string>& reestr, bool& flag, int i) {
-	reestr[i - 2] = std::to_string(arOp[reestr[i]](stoi(reestr[i - 2]), stoi(reestr[i - 1]))); //заменяем элемент [i - 2] на ans
-	reestr.erase(reestr.cbegin() + i); //удаляем элемент [i]
-	reestr.erase(reestr.cbegin() + i - 1); //удаляем элемент [i - 1]
+	reestr[i - 2] = std::to_string(arOp[reestr[i]](stoi(reestr[i - 2]), stoi(reestr[i - 1]))); //Р·Р°РјРµРЅСЏРµРј СЌР»РµРјРµРЅС‚ [i - 2] РЅР° ans
+	reestr.erase(reestr.cbegin() + i); //СѓРґР°Р»СЏРµРј СЌР»РµРјРµРЅС‚ [i]
+	reestr.erase(reestr.cbegin() + i - 1); //СѓРґР°Р»СЏРµРј СЌР»РµРјРµРЅС‚ [i - 1]
 	flag = true;
 }
 
