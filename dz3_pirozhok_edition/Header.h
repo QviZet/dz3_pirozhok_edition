@@ -7,8 +7,16 @@
 #include <exception>
 #include <stdexcept>
 #include <functional>
+#include <conio.h>
+#include <windows.h>
 
 void fillReestr(std::vector<std::string>& data, std::string& fileName);
+
+void editFile(std::string& fileName);
+
+bool checkAr(std::vector<std::string>& data);
+
+bool checkLo(std::vector<std::string>& data);
 
 int my_pow(int frst, int scnd);
 
