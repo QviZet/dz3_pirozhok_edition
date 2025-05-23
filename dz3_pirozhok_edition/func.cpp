@@ -63,11 +63,16 @@ void editFile(std::string& fileName) {
 
 bool checkAr(std::vector<std::string>& data) {
 	bool mark = false;
+	int cN = 0;
+	int cF = 1;
 	std::vector<std::string> chAr{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", "^" };
+
 	for (size_t i = 0; i < data.size(); i++) {
 		for (size_t j = 0; j < chAr.size(); j++) {
 			if (data[i] == chAr[j]) {
 				mark = true;
+				if (j <= 9) cN += 1;
+				else cF += 1;
 			}
 		}
 		try {
@@ -79,17 +84,31 @@ bool checkAr(std::vector<std::string>& data) {
 			return true;
 		}
 		mark = false;
+	}
+	try {
+		if (cF != cN) throw int(cN);
+	}
+	catch (int N)
+	{
+		std::cout << "exception -> uncorrect set of elements\t" << std::endl;
+		return true;
 	}
 	return false;
 }
 
 bool checkLo(std::vector<std::string>& data) {
 	bool mark = false;
+	int cN = 0;
+	int cF = 1;
 	std::vector<std::string> chLo{ "0", "1", "^", "U", "+", "!" };
+
 	for (size_t i = 0; i < data.size(); i++) {
 		for (size_t j = 0; j < chLo.size(); j++) {
 			if (data[i] == chLo[j]) {
 				mark = true;
+				if (j <= 1) cN += 1;
+				else if (j == 5) cF += 0;
+				else cF += 1;
 			}
 		}
 		try {
@@ -102,6 +121,15 @@ bool checkLo(std::vector<std::string>& data) {
 		}
 		mark = false;
 	}
+	try {
+		if (cF != cN) throw int(cN);
+	}
+	catch (int N)
+	{
+		std::cout << "exception -> uncorrect set of elements\t" << std::endl;
+		return true;
+	}
+	return false;
 	return false;
 }
 
