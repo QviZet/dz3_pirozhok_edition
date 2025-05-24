@@ -34,15 +34,15 @@ void fillReestr(std::vector<std::string>& data, std::string& fileName)
 
 void editFile(std::string& fileName) {
 	std::ifstream potok(fileName);
-	
+
 	if (!potok)
 	{
 		std::cout << "Ошибка, файл не найден" << std::endl;
 		system("pause");
 	}
 	std::string a;
-	getline(potok,a);
-	std::cout << a <<std::endl;
+	getline(potok, a);
+	std::cout << a << std::endl;
 	potok.close();
 	std::ofstream potok1(fileName);
 
@@ -62,31 +62,45 @@ void editFile(std::string& fileName) {
 }
 
 bool checkAr(std::vector<std::string>& data) {
-	bool mark = false;
-	int cN = 0;
-	int cF = 1;
-	std::vector<std::string> chAr{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", "^" };
+	int mark = 0; //флаг проверяет соответствие количества верных символов с количеством символов элемента массива
+	int currentCounterNum = 0; // счетчик символов операндов внутри элемента массива
+	int currentCounterOp = 0; // счетчик символов операторов внутри элемента массива
+	int cNum = 0; // счетчик операндов
+	int cOp = 1; // счетчик операторов
+	std::vector<std::string> chAr{ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", "^" };
 
-	for (size_t i = 0; i < data.size(); i++) {
-		for (size_t j = 0; j < chAr.size(); j++) {
-			if (data[i] == chAr[j]) {
-				mark = true;
-				if (j <= 9) cN += 1;
-				else cF += 1;
+	for (size_t i = 0; i < data.size(); i++) { //перебираем элементы массива
+		currentCounterNum = 0;
+		currentCounterOp = 0;
+		for (size_t k = 0; k < size(data[i]); k++) { //перебираем символы элемента
+			for (size_t j = 0; j < chAr.size(); j++) //проверяем символы на корректность
+			{
+				std::string currentNum{ data[i],k,1 };
+				if (currentNum == chAr[j]) {
+					mark += 1;
+					if (j <= 9) currentCounterNum += 1;
+					else currentCounterOp += 1;
+				}
 			}
 		}
+		std::string currentNum{ data[i],0,1 };
+		if ((currentCounterNum > 0 && currentCounterOp > 0 && currentNum != "-") || currentCounterOp > 1) mark = size(data[i]) + 1; //если условия некорректны то мы намеррено делаем флаг неправильным, чтобы выдалось исключение(типа костыль но мне пофиг)
+		else if (currentCounterOp == 1 && currentCounterNum == 0) cOp += 1;
+		else cNum += 1;
+
 		try {
-			if (mark == false) throw std::string(data[i]);
+			if (mark != size(data[i])) throw std::string(data[i]); 
 		}
 		catch (std::string data)
 		{
 			std::cout << "exception -> unknown argument:\t" << data << std::endl;
 			return true;
 		}
-		mark = false;
+		mark = 0;
+
 	}
 	try {
-		if (cF != cN) throw int(cN);
+		if (cNum != cOp) throw int(cNum);
 	}
 	catch (int N)
 	{
@@ -102,8 +116,8 @@ bool checkLo(std::vector<std::string>& data) {
 	int cF = 1;
 	std::vector<std::string> chLo{ "0", "1", "^", "U", "+", "!" };
 
-	for (size_t i = 0; i < data.size(); i++) {
-		for (size_t j = 0; j < chLo.size(); j++) {
+	for (size_t i = 0; i < data.size(); i++) { //перебираем элементы массива
+		for (size_t j = 0; j < chLo.size(); j++) { //для каждого элемента проверяем,является ли символ корректным. Если нет, то флаг mark останется равным false и выдаст исключение
 			if (data[i] == chLo[j]) {
 				mark = true;
 				if (j <= 1) cN += 1;
@@ -111,7 +125,7 @@ bool checkLo(std::vector<std::string>& data) {
 				else cF += 1;
 			}
 		}
-		try {
+		try { //исключение для неопределённых символов
 			if (mark == false) throw std::string(data[i]);
 		}
 		catch (std::string data)
@@ -121,7 +135,7 @@ bool checkLo(std::vector<std::string>& data) {
 		}
 		mark = false;
 	}
-	try {
+	try { //исключение для некорректного выражения
 		if (cF != cN) throw int(cN);
 	}
 	catch (int N)
@@ -132,11 +146,6 @@ bool checkLo(std::vector<std::string>& data) {
 	return false;
 	return false;
 }
-
-std::map<std::string, int> log_operations
-{
-	{"^", 1}, {"U", 2}, {"+", 3}, {"!", 4}
-};
 
 int my_pow(int frst, int scnd) {   //...^...
 	int ans = 1;

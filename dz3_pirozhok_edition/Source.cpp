@@ -7,13 +7,13 @@ int main(int argc, const char* argv[]) {
 	std::vector<std::string> reestr;
 
 	fillReestr(reestr, fileName);
-	
+
 	bool flag = false;//флаг для перехода на новую итерацию цикла после выполнения любой операции
 
-	if (mod == "ar")
+	if (mod == "ar") //блок для работы с арифметическим выражением
 	{
 		if (checkAr(reestr)) return 0;
-		
+
 		while (reestr.size() >= 3) {
 			for (size_t i = 2; i < reestr.size(); i++) {
 
@@ -26,7 +26,7 @@ int main(int argc, const char* argv[]) {
 			}
 		}
 	}
-	else if (mod == "log")
+	else if (mod == "log") //блок для работы с логическим выражением
 	{
 		if (checkLo(reestr)) return 0;
 
@@ -42,18 +42,18 @@ int main(int argc, const char* argv[]) {
 			}
 		}
 	}
-	else if (mod == "edit")
+	else if (mod == "edit") //блок для редактирования файла
 	{
 		editFile(fileName);
 		return 0;
 	}
-	try{
-		if (mod!="edit" && mod != "log" && mod != "ar") throw std::string(mod);
+	try { //исключение для режима работы
+		if (mod != "edit" && mod != "log" && mod != "ar") throw std::string(mod);
 	}
 	catch (std::string data)
 	{
 		std::cout << "exception -> unknown mode:\t" << data << std::endl;
-		exit(0); 
+		exit(0);
 	}
 
 	std::cout << reestr[0];
